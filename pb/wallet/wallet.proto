@@ -1,0 +1,132 @@
+syntax = "proto3";
+
+//option go_package = "path;name";
+//path 表示生成的go文件的存放地址，会自动生成目录的。
+//name 表示生成的go文件所属的包名
+option go_package = "./;wallet";
+// 定义包名
+package wallet;
+
+service WalletServer {
+  rpc WithDraw (WithDrawRequest) returns (WithDrawReply) {}
+  rpc FoundFee (FoundFeeRequest) returns (WithDrawReply) {}
+  rpc Collect (CollectRequest) returns (WithDrawReply) {}
+  rpc AddChain (AddChainRequest) returns (AddChainReply){}
+  rpc GetChainByChainName (GetChainByChainNameRequest) returns (GetChainByChainNameReply){}
+  // 支持所有公链查询
+  rpc GetAllChain (GetAllChainRequest) returns (GetAllChainReply){}
+  rpc AddToken(AddTokenRequest) returns (AddTokenReReply){}
+  rpc GetTokenBySymbol(GetTokenBySymbolRequest) returns(GetTokenBySymbolReply){}
+  rpc GetTokens(GetTokensRequest) returns(GetTokensReply){}
+}
+message FoundFeeRequest{
+  string chain = 1;
+  string amount = 2;
+  string addr = 3;
+  string AccountID = 4;
+}
+
+message CollectRequest{
+  string chain = 1;
+  string symbol = 2;
+  string amount = 3;
+  string from_addr = 4; //归集用户地址
+  string from_apikey = 5;
+  string from_uid = 6;
+  string accountID = 7;
+  string contract_addr = 8;
+}
+
+message GetTokensRequest{
+  string chain = 1;
+}
+message GetTokensReply{
+  repeated TokenInfo tokenInfos = 1;
+}
+
+message WithDrawRequest {
+  string chain = 1;
+  string accountID = 2;
+  string amount = 3;
+  string symbol = 4;
+  string thirdID = 5; //第三方订单ID
+  string addr = 6; //提现地址
+}
+
+message WithDrawReply {
+  string message = 1;
+}
+// GetAllChainRequest GetAllChainReply
+message GetAllChainRequest {
+
+}
+
+message ChainReplyInfo{
+  int32  confirmationNumber = 1; // 区块确认数
+  string chain = 2;
+}
+
+message GetAllChainReply{
+  repeated ChainReplyInfo chainReplyInfos = 1;
+}
+message AddChainRequest {
+
+}
+
+message AddChainReply{
+  int32  confirmationNumber = 1; // 区块确认数
+}
+message GetChainByChainNameRequest {
+  string chain = 1;
+}
+
+message GetChainByChainNameReply{
+  ChainReplyInfo chainReplyInfos = 1;
+}
+
+enum TokenType{
+  ETHToken = 0;
+  ETHContractToken = 1;
+  BSCToken = 2;
+  BSCContractToken = 3;
+}
+enum TokenStatus {
+  TokenEnable = 0;
+  TokenDisable = 1;
+}
+
+message TokenInfo {
+  string   chain = 1;
+  string   symbol = 2;
+  string  contract_address = 3;
+  bool   enable_deposit = 4;
+  bool   enable_withdrawal = 5;
+  string  deposit_threshold = 6; //充值最小额度
+  string   withdrawal_threshold = 7; // 提现最小额度
+  string  collect_threshold = 8; //
+  int32   decimals = 9; //代币精度
+  TokenType    type = 10; //代币类型
+  TokenStatus    status = 11;
+  repeated string blacklist = 12;
+  string gas_fee = 15; //提现手续费
+  string  fixed_fee = 14; //转账手续费
+  string fee_token = 16; // 转账手续费币种名称
+  string   logo_url = 17;
+}
+
+message AddTokenRequest {
+  TokenInfo tokenInfo = 1;
+}
+
+message AddTokenReReply{
+
+}
+
+message GetTokenBySymbolRequest{
+  string   chain = 1;
+  string   symbol = 2;
+}
+
+message GetTokenBySymbolReply {
+  TokenInfo tokenInfo = 1;
+}

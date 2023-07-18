@@ -1,0 +1,124 @@
+syntax = "proto3";
+
+//option go_package = "path;name";
+//path 表示生成的go文件的存放地址，会自动生成目录的。
+//name 表示生成的go文件所属的包名
+option go_package = "./;order";
+// 定义包名
+package order;
+
+service OrderServer {
+  // 执行转账
+  rpc Transfer (TransferRequest) returns (TransferReply) {}
+  // 1. 账户资产查询
+  rpc GetAssetsByAccountID (GetAssetsByAccountIDRequest) returns (GetAssetsByAccountIDReply){}
+  // 资产变动记录
+  rpc GetAssetsHistory (GetAssetsHistoryRequest) returns (GetAssetsHistoryReply){}
+  // 订单历史（充值-提现-内部转账）
+  rpc GetOrderHistory (GetOrderHistoryRequest) returns (GetOrderHistoryReply){}
+  //  执行提现api
+  rpc WithDraw (WithDrawRequest) returns (WithDrawReply) {}
+}
+
+message TransferRequest {
+  string fromAccountID = 1;
+  string toAccountID = 2;
+  string thirdID = 3; // 订单ID(第三方）
+  string symbol = 4; // 代币符号
+  string amount = 5; // 金额eg:"1","1.1"
+}
+
+message TransferReply{
+  string orderID = 1; // 订单ID(我们内部）
+}
+
+message GetAssetsByAccountIDRequest {
+  string accountID = 1;
+  repeated string symbols = 2; // 需要查询的symbol数组，空表示查询所有
+}
+
+message AssetsInfo {
+  string symbol = 1;
+  string balance = 2;
+  string frozen = 3;
+  int64 createTime = 4;
+  int64 updateTime = 5;
+}
+
+message GetAssetsByAccountIDReply{
+  repeated AssetsInfo assets = 3;
+}
+
+message WithDrawRequest {
+  string chain = 1; //链
+  string accountID = 2;
+  string amount = 3; //提现金额
+  string symbol = 4; //提现币种
+  string thirdID = 5; //第三方订单ID
+  string addr = 6; //提现地址
+}
+
+// 定义HelloReply消息
+message WithDrawReply {
+  string orderID = 1;
+}
+
+enum OrderHistoryType {
+  OrderTypeUnKnow = 0;
+  OrderWithDraw = 1;
+  OrderTransfer = 2;
+  OrderDeposit = 3;
+}
+message GetOrderHistoryRequest {
+  string accountID = 1;
+  int64 start = 2;
+  int64 end = 3;
+  OrderHistoryType type = 4;
+  repeated string orderID = 5;
+  repeated string thirdID = 6;
+}
+enum OrderStatus {
+  OrderStatusUnKnow = 0; //划转成功，充值成功， 提现成功
+  OrderStatusWithDrawing = 1; //提现中
+  OrderStatusWithDrawFail = 2; //提现失败
+}
+message OrderHistoryInfo {
+  int64 createTime = 1;
+  OrderHistoryType type = 2;
+  string amount = 3;
+  string orderID = 4;
+  string thirdID = 5;
+  string accountID = 6;
+  OrderStatus status = 7;
+}
+
+message GetOrderHistoryReply {
+  repeated OrderHistoryInfo orderHistory = 3;
+}
+
+enum AssetsHistoryType {
+    UnKnow = 0;
+    AssetsTransferIn = 1; //转入
+    AssetsTransferOut = 2; //转出
+    AssetsDeposit = 3; //充值
+    AssetsWithDraw = 4;//提现
+    AssetsTransferFee = 5;//转账手续费
+    AssetsWithDrawFee = 6;//提现手续费
+}
+message GetAssetsHistoryRequest {
+  int64 accountID = 1;
+  int64 start = 2;
+  int64 end = 3;
+  AssetsHistoryType type = 4;
+}
+
+message AssetsHistoryInfo {
+  int64 createTime = 1;
+  int32 type = 2;
+  string amount = 3;
+  string orderID = 4;
+  string thirdID = 5;
+}
+message GetAssetsHistoryReply {
+  repeated AssetsHistoryInfo assetsHistory = 3;
+}

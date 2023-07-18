@@ -1,0 +1,112 @@
+syntax = "proto3";
+package proto;
+option go_package = "chain/gen";
+service ChainService {
+    rpc CreateChainAccount(CreateAccountRequest)returns(CreateAccountRespon){}
+    rpc SendToken(SendTokenRequest)returns(SendTokenRespon){}
+    rpc CreateTransfer(CreateTransferRequest)returns(CreateTransferRespon){}
+    rpc SignTransfer(SignTransferRequest)returns(SignTransferRespon){}
+    rpc Broadcast(BroadcastTransferRequest)returns(BroadcastTransferRespon){}
+    rpc BalanceByUid(BalanceByUidRequest)returns(BalanceByUidRespon){}
+    rpc BalanceByAddress(BalanceByAddressRequest)returns(BalanceByAddressRespon){}
+    rpc SetNotifyUrl(SetNotifyUrlRequest)returns(SetNotifyUrlRespon){}
+}
+/*
+    CHAIN_BSC  ChainType = iota + 1000
+	CHAIN_ARBI ChainType = iota + 1000
+	ETH        ChainType = iota + 1000
+	ZKSync     ChainType = iota + 1000
+	ZKEVM      ChainType = iota + 1000
+	StarkNet   ChainType = iota + 1000
+*/
+enum ChainType {
+    BSC = 0;
+    ARBITRUN = 1;
+    ETH = 2;
+    ZKSync = 3;
+    ZKEVM = 4;
+    StarkNet = 5;
+}
+message CreateAccountRequest {
+    string api_key = 1;
+    string uid = 2;
+} 
+
+message CreateAccountRespon {
+   repeated Address addresses = 1;
+}
+message Address {
+    string chain  = 1;
+    string address = 2;
+}
+
+message SendTokenRequest{
+    string api_key = 1;
+    string uid = 2;
+    string to_address = 3;
+    string contract = 4;
+    string amount = 5;
+    ChainType chain = 6;
+}
+message SendTokenRespon{
+    bool success = 1;
+    string msg = 2;
+    string tx_hash = 3;
+}
+message CreateTransferRequest{
+    string api_key = 1;
+    string uid = 2;
+    string to = 3;
+    string contract = 4;
+    string amount = 5;
+    ChainType chain = 6;
+}
+message CreateTransferRespon{
+    bytes data = 2;
+}
+message SignTransferRequest{
+    string api_key = 1;
+    string uid = 2;
+    bytes data = 3;
+    ChainType chain = 4;
+}
+message SignTransferRespon{
+    string tx_hash = 1;
+    bytes signdata = 2;
+}
+message BroadcastTransferRequest{
+    bytes data = 1;
+    ChainType chain = 2;
+}
+message BroadcastTransferRespon{
+    bool success = 1;
+}
+  
+message BalanceByUidRequest{
+    string api_key = 1;
+    string uid = 2;
+    ChainType chain = 3;
+    string contract = 4;
+}
+message BalanceByUidRespon{
+    ChainType chain = 1;
+    string balance = 2;
+    string contract = 3;
+}
+message BalanceByAddressRequest{
+    string address = 1;
+    ChainType chain = 2;
+    string contract = 3;
+}
+message BalanceByAddressRespon{
+    ChainType chain = 1;
+    string address = 2;
+    string balance = 3;
+    string contract = 4;
+}
+message SetNotifyUrlRequest{
+    string url = 1;
+}
+message SetNotifyUrlRespon{
+    bool success = 1;
+}

@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+//option go_package = "path;name";
+//path 表示生成的go文件的存放地址，会自动生成目录的。
+//name 表示生成的go文件所属的包名
+option go_package = "./;account";
+// 定义包名
+package account;
+
+enum ChainType {
+  BSC = 0;
+}
+service AccountServer {
+  // 从 apiKey 获取到对应的商户信息
+  rpc GetMerchantInfo(GetMerchantInfoRequest) returns (GetMerchantInfoReply) {}
+  rpc GetAccountInfo(GetAccountInfoRequest) returns (GetAccountInfoReply) {}
+}
+
+message  GetMerchantInfoRequest {
+  string apiKey = 1;
+}
+
+message GetMerchantInfoReply {
+  string callbackUrl = 1; // 回调地址
+  int32 status = 2; // 状态 0 申请中 -1 关闭 1 使用中
+}
+
+message GetAccountInfoRequest {
+  string address = 1;
+  ChainType chainType = 2;
+}
+
+message GetAccountInfoReply {
+  string apiKey = 1; //  apiKey
+  string userId = 2; //  用户id
+  string accountId = 3; //  账户id
+}

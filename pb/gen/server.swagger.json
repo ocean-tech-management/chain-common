@@ -1,0 +1,167 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "server.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "ChainService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "protoAddress": {
+      "type": "object",
+      "properties": {
+        "chain": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        }
+      }
+    },
+    "protoBalanceByAddressRespon": {
+      "type": "object",
+      "properties": {
+        "chain": {
+          "$ref": "#/definitions/protoChainType"
+        },
+        "address": {
+          "type": "string"
+        },
+        "balance": {
+          "type": "string"
+        },
+        "contract": {
+          "type": "string"
+        }
+      }
+    },
+    "protoBalanceByUidRespon": {
+      "type": "object",
+      "properties": {
+        "chain": {
+          "$ref": "#/definitions/protoChainType"
+        },
+        "balance": {
+          "type": "string"
+        },
+        "contract": {
+          "type": "string"
+        }
+      }
+    },
+    "protoBroadcastTransferRespon": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "protoChainType": {
+      "type": "string",
+      "enum": [
+        "BSC",
+        "ARBITRUN",
+        "ETH",
+        "ZKSync",
+        "ZKEVM",
+        "StarkNet"
+      ],
+      "default": "BSC",
+      "title": "CHAIN_BSC  ChainType = iota + 1000\nCHAIN_ARBI ChainType = iota + 1000\nETH        ChainType = iota + 1000\nZKSync     ChainType = iota + 1000\nZKEVM      ChainType = iota + 1000\nStarkNet   ChainType = iota + 1000"
+    },
+    "protoCreateAccountRespon": {
+      "type": "object",
+      "properties": {
+        "addresses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protoAddress"
+          }
+        }
+      }
+    },
+    "protoCreateTransferRespon": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "protoSendTokenRespon": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "txHash": {
+          "type": "string"
+        }
+      }
+    },
+    "protoSetNotifyUrlRespon": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "protoSignTransferRespon": {
+      "type": "object",
+      "properties": {
+        "txHash": {
+          "type": "string"
+        },
+        "signdata": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
