@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://gitlab.fatdog.club/dashan/common.git
+git remote add origin https://gitlab.chubbydog.net/chain/common.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.fatdog.club/dashan/common/-/settings/integrations)
+- [ ] [Set up project integrations](https://gitlab.chubbydog.net/chain/common/-/settings/integrations)
 
 ## Collaborate with your team
 

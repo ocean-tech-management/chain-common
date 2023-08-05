@@ -1,4 +1,4 @@
-module gitlab.fatdog.club/dashan/common
+module gitlab.chubbydog.net/chain/common
 
 go 1.19
 
