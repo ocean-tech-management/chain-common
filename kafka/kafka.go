@@ -5,7 +5,8 @@ const ConsumerOrderGroup = "ConsumerOrderGroup"
 
 type NotifyDeposit struct {
 	Chain     string `json:"chain"`
-	AccountID string `json:"account_id"`
+	AccountId string `json:"account_id"`
+	ApiKey    string `json:"api_key"`
 	Addr      string `json:"addr"`
 	Symbol    string `json:"symbol"`
 	Contract  string `json:"contract"`
