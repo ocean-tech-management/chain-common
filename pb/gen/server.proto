@@ -29,7 +29,7 @@ enum ChainType {
 }
 message CreateAccountRequest {
     string api_key = 1;
-    string uid = 2;
+    string account_id = 2;
 } 
 
 message CreateAccountRespon {
@@ -42,7 +42,7 @@ message Address {
 
 message SendTokenRequest{
     string api_key = 1;
-    string uid = 2;
+    string account_id = 2;
     string to_address = 3;
     string contract = 4;
     string amount = 5;
@@ -55,7 +55,7 @@ message SendTokenRespon{
 }
 message CreateTransferRequest{
     string api_key = 1;
-    string uid = 2;
+    string account_id = 2;
     string to = 3;
     string contract = 4;
     string amount = 5;
@@ -66,7 +66,7 @@ message CreateTransferRespon{
 }
 message SignTransferRequest{
     string api_key = 1;
-    string uid = 2;
+    string account_id = 2;
     bytes data = 3;
     ChainType chain = 4;
 }
@@ -84,7 +84,7 @@ message BroadcastTransferRespon{
   
 message BalanceByUidRequest{
     string api_key = 1;
-    string uid = 2;
+    string account_id = 2;
     ChainType chain = 3;
     string contract = 4;
 }
