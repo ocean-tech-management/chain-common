@@ -55,6 +55,7 @@ message WithDrawRequest {
 
 message WithDrawReply {
   string message = 1;
+  string Hash = 2;
 }
 // GetAllChainRequest GetAllChainReply
 message GetAllChainRequest {
