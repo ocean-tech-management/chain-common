@@ -9,6 +9,8 @@ type NotifyDeposit struct {
 	AccountId string `json:"account_id"`
 	ApiKey    string `json:"api_key"`
 	Addr      string `json:"addr"`
+	FromAddr  string `json:"from_addr"`
+	ToAddr    string `json:"to_addr"`
 	Symbol    string `json:"symbol"`
 	Contract  string `json:"contract"`
 	Hash      string `json:"hash"`
