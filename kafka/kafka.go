@@ -1,6 +1,7 @@
 package kafka
 
 const NotifyDepositTopic = "NotifyDeposit"
+const NotifyWithDrawTopic = "NotifyWithDraw"
 const ConsumerOrderGroup = "ConsumerOrderGroup"
 
 type NotifyDeposit struct {
@@ -12,4 +13,9 @@ type NotifyDeposit struct {
 	Contract  string `json:"contract"`
 	Hash      string `json:"hash"`
 	Amount    string `json:"amount"` //精度处理后还是带精度的？
+}
+
+type NotifyWithDraw struct {
+	Hash   string `json:"hash"`
+	Status int    `json:"status"`
 }
