@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/google/uuid v1.3.0
-	github.com/suiguo/hwlib v1.7.5
+	github.com/suiguo/hwlib v1.8.1
 	google.golang.org/grpc v1.56.1
 	google.golang.org/protobuf v1.31.0
 )

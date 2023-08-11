@@ -2,6 +2,7 @@ package gen
 
 import (
 	context "context"
+	"crypto"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -66,7 +67,7 @@ func newSignData(req interface{}, apikey string, nonce string) ([]byte, error) {
 func (c *ChainClient) interceptor(ctx context.Context, method string, req, reply interface{}, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) (err error) {
 	requestid := uuid.NewString()
 	signdata, err := newSignData(req, c.apikey, requestid)
-	sign, err := rsa.SignRSA(signdata, c.pri)
+	sign, err := rsa.SignRSA(crypto.SHA256, signdata, c.pri)
 	if err != nil {
 		return err
 	}
