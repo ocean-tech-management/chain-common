@@ -1,8 +1,10 @@
 package account
 
+import "strings"
+
 func (x *GetAssetStatusReply) SymbolFunctionFrozen(symbol string, funct FrozenFunction) bool {
 	for _, v := range x.Items {
-		if v.Symbol == "" || v.Symbol == symbol {
+		if v.Symbol == "" || strings.EqualFold(v.Symbol, symbol) {
 			if v.Function == FrozenFunction_ALL || v.Function == funct {
 				return true
 			}
