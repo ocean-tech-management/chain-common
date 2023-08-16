@@ -14,6 +14,7 @@ service AccountServer {
   // 从 apiKey 获取到对应的商户信息
   rpc GetMerchantInfo(GetMerchantInfoRequest) returns (GetMerchantInfoReply) {}
   rpc GetAccountInfo(GetAccountInfoRequest) returns (GetAccountInfoReply) {}
+  rpc GetAssetStatus(GetAssetStatusRequest) returns (GetAssetStatusReply) {}
 }
 
 message  GetMerchantInfoRequest {
@@ -34,4 +35,37 @@ message GetAccountInfoReply {
   string apiKey = 1; //  apiKey
   string userId = 2; //  用户id
   string accountId = 3; //  账户id
+}
+
+// frozen function
+// function	false	int	账户功能：1（充值）、2（提现）、3（转账）、0（所有功能）；默认3
+enum FrozenFunction {
+  // 所有功能
+  ALL = 0;
+  // 充值
+  RECHARGE = 1;
+  // 提现
+  WITHDRAW = 2;
+  // 转账
+  TRANSFER = 3;
+}
+// 功能状态：normal（正常）；frozen（冻结）
+enum FrozenFunctionStatus {
+  // 正常
+  NORMAL = 0;
+  // 冻结
+  FROZEN = 1;
+}
+
+message GetAssetStatusRequest {
+  string accountId = 1;
+}
+
+message GetAssetStatusReply {
+  repeated AssetStatusVoItem items = 1;
+}
+message  AssetStatusVoItem {
+  FrozenFunction function = 1; // 账户功能：1（充值）、2（提现）、3（转账）、0（所有功能）
+  FrozenFunctionStatus functionStatus = 2; // 功能状态：0（正常）；1（冻结）
+  string symbol = 3; // 	代币名称，默认所有代币（空字符串）
 }
