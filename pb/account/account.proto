@@ -58,7 +58,8 @@ enum FrozenFunctionStatus {
 }
 
 message GetAssetStatusRequest {
-  string accountId = 1;
+  string apiKey = 1;
+  string accountId = 2;
 }
 
 message GetAssetStatusReply {
