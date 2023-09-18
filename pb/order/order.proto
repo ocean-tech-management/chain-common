@@ -24,8 +24,9 @@ service OrderServer {
 
 message CashSweepRequest {
     string accountID = 1; 
-    string symbol = 2;
-    string chain = 3;
+    string address = 2;
+    string symbol = 3;
+    string chain = 4;
 }
 
 message CashSweepReply{
