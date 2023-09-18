@@ -18,6 +18,18 @@ service OrderServer {
   rpc GetOrderHistory (GetOrderHistoryRequest) returns (GetOrderHistoryReply){}
   //  执行提现api
   rpc WithDraw (WithDrawRequest) returns (WithDrawReply) {}
+  //执行归集
+  rpc CashSweep(CashSweepRequest)returns(CashSweepReply){}
+}
+
+message CashSweepRequest {
+    string accountID = 1; 
+    string symbol = 2;
+    string chain = 3;
+}
+
+message CashSweepReply{
+    int32 status  = 1;
 }
 
 message TransferRequest {
