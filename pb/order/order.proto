@@ -75,6 +75,7 @@ message WithDrawRequest {
 // 定义HelloReply消息
 message WithDrawReply {
   string orderID = 1;
+  string hash = 2;
 }
 
 enum OrderHistoryType {
