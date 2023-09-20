@@ -11,14 +11,7 @@ service ChainService {
     rpc BalanceByAddress(BalanceByAddressRequest)returns(BalanceByAddressRespon){}
     rpc SetNotifyUrl(SetNotifyUrlRequest)returns(SetNotifyUrlRespon){}
 }
-/*
-    CHAIN_BSC  ChainType = iota + 1000
-	CHAIN_ARBI ChainType = iota + 1000
-	ETH        ChainType = iota + 1000
-	ZKSync     ChainType = iota + 1000
-	ZKEVM      ChainType = iota + 1000
-	StarkNet   ChainType = iota + 1000
-*/
+
 enum ChainType {
     BSC = 0;
     ARBITRUN = 1;
@@ -26,6 +19,7 @@ enum ChainType {
     ZKSync = 3;
     ZKEVM = 4;
     StarkNet = 5;
+    Tron = 6;
 }
 message CreateAccountRequest {
     string api_key = 1;

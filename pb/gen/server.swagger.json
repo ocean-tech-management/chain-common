@@ -75,10 +75,10 @@
         "ETH",
         "ZKSync",
         "ZKEVM",
-        "StarkNet"
+        "StarkNet",
+        "Tron"
       ],
-      "default": "BSC",
-      "title": "CHAIN_BSC  ChainType = iota + 1000\nCHAIN_ARBI ChainType = iota + 1000\nETH        ChainType = iota + 1000\nZKSync     ChainType = iota + 1000\nZKEVM      ChainType = iota + 1000\nStarkNet   ChainType = iota + 1000"
+      "default": "BSC"
     },
     "protoCreateAccountRespon": {
       "type": "object",
