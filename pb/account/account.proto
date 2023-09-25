@@ -9,6 +9,7 @@ package account;
 
 enum ChainType {
   BSC = 0;
+  TRON = 1;
 }
 service AccountServer {
   // 从 apiKey 获取到对应的商户信息
